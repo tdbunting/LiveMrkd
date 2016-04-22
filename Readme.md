@@ -1,6 +1,6 @@
 ## LiveMrkd
 
-LiveMrkd is  a lightweight Markdown editor. 
+LiveMrkd is  a lightweight Markdown editor.
 View output in real time as you edit .md file.  
 
 Great for editing your markdown files before publishing to GitHub.
