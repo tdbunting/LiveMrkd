@@ -1,0 +1,92 @@
+html {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  color: #101014;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body, input {
+  font: menu;
+}
+
+textarea, input, div, button { outline: none; }
+
+.controls {
+  background-color: #3C3A41;
+  /*padding: 1em;*/
+  position: fixed;
+  float:left;
+  width: 50px;
+  height: 100%;
+  /*box-shadow: 5px 0 0 #101014;*/
+}
+
+.controls button {
+  display:block;
+  color: #FFF;
+  background-color: #3C3A41;
+  border: none;
+  border-bottom: solid 1px #57545e;
+  font-size: 1.5em;
+  text-align: center;
+  width: 100%;
+  height: 50px;
+  margin: 0 auto;
+}
+
+.controls button:hover {
+  /*background-color: #57545e;  #6441a5*/
+
+  box-shadow: -6px 0 0 #8b57eb inset;
+}
+
+.controls button:active {
+
+}
+
+.controls button:disabled {
+  color: #444;
+}
+.controls button:disabled:hover {
+  background-color: #3C3A41;
+  box-shadow: none;
+}
+
+.content {
+  margin-left: 50px;
+  height: 100%;
+  display: flex;
+}
+
+.raw-markdown, .rendered-html {
+  min-height: 100vh;
+  max-width: 50%;
+  padding: 1em;
+  flex-grow: 1;
+  overflow: scroll;
+}
+
+
+.raw-markdown {
+  width: 100%;
+  font-size: 1.1em;
+  padding-top: 1.85em;
+  border: none;
+  background-color: #F9F9F9;
+  color: #101014;
+  font-family: monospace;
+  white-space: pre;
+}

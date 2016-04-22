@@ -1,0 +1,9 @@
+# dependencies
+/node_modules
+
+# compiled app
+/compiled
+
+# misc
+npm-debug.log
+.DS_Store
