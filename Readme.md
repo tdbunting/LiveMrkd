@@ -1,23 +1,37 @@
-## LiveMrkd
+# LiveMrkd
 
-LiveMrkd is  a lightweight Markdown editor.
-View output in real time as you edit .md file.  
+This is a simple markdown editor built as a stand-alone application. 
+It allows you to create/edit markdown files and displays results in real time 
+so you can view as you write.
 
-Great for editing your markdown files before publishing to GitHub.
+Built with [Node](http://nodejs.org/) and wrapped in an [Electron](http://electron.atom.io/) container.
+
+## Prerequisites
+
+You will need the following properly installed on your computer.
+
+* [Node.js](http://nodejs.org/) (with NPM)
 
 
+## Installation
 
-### Development Tools:
+* `git clone <repository-url>` this repository
+* change into the new directory
+* `npm install`
 
-- Make sure npm is installed
-- clone this repository
-- run npm install
 
-### Building the package:
+## Running / Development
 
-- Edit the package.json build script
-- if building for Mac, leave it as is
-- if building for Windows, change build from darwin to win32 or win 64
-- run npm build
+* `npm start`
+  
 
-  LiveMrkd is a work in progress
+### Building
+
+* `npm build` from within the project root builds Mac OS X 64bit version
+* If you need to build for another platform:
+  
+  `electron-packager <sourcedir> LiveMrkd --platform=<platform> --arch=<arch> --out <output-dir> [optional flags...]`
+
+Get more information about building with [electron-packager](https://github.com/electron-userland/electron-packager#from-the-command-line)
+
+
