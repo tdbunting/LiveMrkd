@@ -1,3 +1,16 @@
+/*    COLORS:
+ *
+ *    #8b57eb = Bright Purple
+ *    #6441a5 = Purple
+ *    #3A1F64 = Dark Purple
+ *    #F9F9F9 = White
+ *    #57545e = Gray
+ *    #3C3A41 = Dark Gray
+ *    #101014 = Black
+ *
+*/
+
+
 html {
   box-sizing: border-box;
 }
@@ -48,8 +61,6 @@ textarea, input, div, button { outline: none; }
 }
 
 .controls button:hover {
-  /*background-color: #57545e;  #6441a5*/
-
   box-shadow: -6px 0 0 #8b57eb inset;
 }
 
