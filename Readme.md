@@ -19,3 +19,5 @@ Great for editing your markdown files before publishing to GitHub.
 - if building for Mac, leave it as is
 - if building for Windows, change build from darwin to win32 or win 64
 - run npm build
+
+  LiveMrkd is a work in progress
