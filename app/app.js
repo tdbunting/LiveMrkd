@@ -75,8 +75,15 @@ const saveAsHtmlFile = function(content){
 };
 
 const closeFile = function(){
-  mainWindow.webContents.send('file-closed');
-  currentFile = null;
+  var close = dialog.showMessageBox(BrowserWindow, {
+    buttons: ["Save", "Don't Save", "Cancel"],
+    message: "Current file is not saved, are you sure you want to close?",
+    cancelID: 3
+  });
+  
+
+  // mainWindow.webContents.send('file-closed');
+  // currentFile = null;
 }
 
 const showInFileSystem = function(){
@@ -159,7 +166,7 @@ const template = [
 
 if (process.platform == 'darwin') {
   var name = 'LiveMrkd';
-  template[0].submenu[5].label = "Show in Finder";
+  template[0].submenu[6].label = "Show in Finder";
   template.unshift({
     label: name,
     submenu: [
@@ -221,6 +228,16 @@ app.on('ready', function(){
   // mainWindow.webContents.openDevTools();
 
   //TODO: new file, or open dialog box
+
+  mainWindow.on('close', function(){
+    console.log('Window Closing...')
+
+    // just to simulate the window preparing to close
+    for(var i = 5; i > 0; i --){
+      console.log(i)
+    }
+
+  });
 
   // when window is closed, clean up
   mainWindow.on('closed', function(){

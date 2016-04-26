@@ -30,13 +30,9 @@ function renderMarkdownToHtml(markdown){
   $htmlView.html(html);
 }
 
-function closeFile(){
+function closingFile(){
   if(isSaved === true){
-    $markdownView.val('');
-    $htmlView.empty();
-    $closeFileButton.attr('disabled', true);
-    $showInFileSystemButton.attr('disabled', true);
-    currentFile = null;
+    closeFile();
   }else{
     var save = confirm("File not saved, are you sure you want to close?");
     if(save){
@@ -46,6 +42,15 @@ function closeFile(){
 
     }
   }
+}
+
+function closeFile(){
+  $markdownView.val('');
+  $htmlView.empty();
+  $closeFileButton.attr('disabled', true);
+  $showInFileSystemButton.attr('disabled', true);
+  currentFile = null;
+  isSaved = false;
 };
 
 function showInFileSystem(){
@@ -54,7 +59,7 @@ function showInFileSystem(){
 
 ipc.on('file-opened', function (event, file, content) {
   currentFile = file;
-
+  isSaved = true;
   $showInFileSystemButton.attr('disabled', false);
   $closeFileButton.attr('disabled', false);
 
@@ -63,7 +68,7 @@ ipc.on('file-opened', function (event, file, content) {
 });
 
 ipc.on('file-closed', function(event){
-  closeFile();
+  closingFile();
 });
 
 ipc.on('close-after-save', function(event){
@@ -87,6 +92,7 @@ $(document).on('click', 'a[href^="http"]', function(event){
 // button functions
 $markdownView.on('keyup', function(){
   var content = $(this).val();
+  isSaved = false;
   renderMarkdownToHtml(content);
   $closeFileButton.attr('disabled', false);
 });
@@ -96,7 +102,7 @@ $openFileButton.on('click', function(){
 });
 
 $closeFileButton.on('click', function(){
-  closeFile();
+  closingFile();
 });
 
 $copyHtmlButton.on('click', function(){
