@@ -26,6 +26,7 @@ const openFile = function () {
   app.addRecentDocument(file);
 
   mainWindow.webContents.send('file-opened', file, content);
+  isSaved = true;
 };
 
 const saveFile = function(content){
@@ -51,13 +52,9 @@ const saveFile = function(content){
 
     // reopens saved file in case file was new to activate the show in FS button
     mainWindow.webContents.send('file-opened', fileName, content);
+    isSaved = true;
   }
 };
-
-const saveOnClose = function(content){
-  saveFile(content);
-  mainWindow.webContents.send('close-after-save');
-}
 
 const saveAsHtmlFile = function(content){
   var fileName = dialog.showSaveDialog(mainWindow, {
@@ -75,15 +72,25 @@ const saveAsHtmlFile = function(content){
 };
 
 const closeFile = function(){
-  var close = dialog.showMessageBox(BrowserWindow, {
-    buttons: ["Save", "Don't Save", "Cancel"],
-    message: "Current file is not saved, are you sure you want to close?",
-    cancelID: 3
-  });
-  
-
-  // mainWindow.webContents.send('file-closed');
-  // currentFile = null;
+  if(isSaved){
+    mainWindow.webContents.send('file-closed');
+    currentFile = null;
+  }else{
+    var message = dialog.showMessageBox({
+      buttons: ["Save", "Don't Save", "Cancel"],
+      message: "Current file is not saved, are you sure you want to close?",
+      cancelID: 3
+    });
+    if(message === 0){
+      mainWindow.webContents.send('save-on-close');
+      mainWindow.webContents.send('file-closed');
+    }else if(message === 1){
+      mainWindow.webContents.send('file-closed');
+      currentFile = null;
+    }else{
+      console.log("Cancelled")
+    }
+  }
 }
 
 const showInFileSystem = function(){
@@ -210,6 +217,7 @@ if (process.platform == 'darwin') {
 var mainWindow = null;
 var menu = Menu.buildFromTemplate(template);
 var currentFile = null;
+var isSaved = true;
 
 app.on('ready', function(){
   console.log('The App is ready');
@@ -230,13 +238,9 @@ app.on('ready', function(){
   //TODO: new file, or open dialog box
 
   mainWindow.on('close', function(){
-    console.log('Window Closing...')
-
-    // just to simulate the window preparing to close
-    for(var i = 5; i > 0; i --){
-      console.log(i)
+    if(!isSaved){
+      closeFile();
     }
-
   });
 
   // when window is closed, clean up
@@ -252,11 +256,20 @@ app.on('open-file', function(event, file){
   mainWindow.webContents.send('file-opened', file, content);
 })
 
-function fileNotSaved(){
 
-  console.log("File not saved, are you sure you want to close?");
+
+// TODO: FIGURE OUT BETTER WAY OF SHARING IS SAVED VALUES
+function savedSwitch(){
+  if(isSaved){
+    isSaved = false;
+  }else{
+    isSaved = true;
+  }
 }
 
+function clearFilePath(){
+  currentFile = null;
+}
 
 // functions to export for renderer
 exports.openFile = openFile;
@@ -264,4 +277,6 @@ exports.closeFile = closeFile;
 exports.saveFile = saveFile;
 exports.saveAsHtmlFile = saveAsHtmlFile;
 exports.showInFileSystem = showInFileSystem;
-exports.saveOnClose = saveOnClose;
+// try to get rid of these
+exports.savedSwitch = savedSwitch;
+exports.clearFilePath = clearFilePath;
