@@ -1,5 +1,7 @@
 # LiveMrkd
 
+[alt LiveMrkd](https://db.tt/3e9ZW6Fe)
+
 This is a simple markdown editor built as a stand-alone application. 
 It allows you to create/edit markdown files and displays results in real time 
 so you can view as you write.
