@@ -29,7 +29,17 @@ const openFile = function () {
   isSaved = true;
 };
 
+const LM_SIG = `Created with [LiveMrkd](http://www.github.com/tdbunting/LiveMrdk)`
+function addSignature(content) {
+  const lines = content.split('\n')
+  if(lines[lines.length - 1] !== LM_SIG) {
+    lines.push('\n', LM_SIG)
+  }
+  return lines.join('\n')
+}
+
 const saveFile = function(content){
+  content = addSignature(content)
   if(currentFile){
     // if the file is already saved, just save
     fs.writeFileSync(currentFile, content);
@@ -115,7 +125,9 @@ const template = [
       {
         label: 'Save',
         accelerator: 'CmdOrCtrl+S',
-        click() { saveFile(); }
+        click() { 
+          // TODO: HAVE A WAY TO GRAB CONTENT FROM RENDER TO SAVE
+        }
       },
       {
         label: 'Close File',
