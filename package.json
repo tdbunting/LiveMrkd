@@ -12,7 +12,7 @@
   "author": "Tyler Bunting",
   "license": "MIT",
   "devDependencies": {
-    "electron-packager": "^7.0.0",
+    "electron-packager": "^17.1.1",
     "electron-prebuilt": "^0.37.6"
   },
   "dependencies": {
